@@ -168,16 +168,24 @@ async function handleRequest(request) {
         })
       }
     } else if (req_cmd == "del") {
-      await LINKS.delete(req_key)
-      
-      // 计数功能打开的话, 要把计数的那条KV也删掉
-      if (config.visit_count) {
-        await LINKS.delete(req_key + "-count")
-      }
+      // Do not accecpt any del cmd for "password" !IMPORTANT!
+      if (req_key == "password") {
 
-      return new Response(`{"status":200, "key": "` + req_key + `", "error": ""}`, {
-        headers: response_header,
-      })
+        return new Response(`{"status":500, "key": "` + req_key + `", "error":"Error:PROTECTED KEY"}`, {
+          headers: response_header,
+        })
+      } else {
+        await LINKS.delete(req_key)
+        
+        // If the counting functionality is enabled, delete the corresponding KV entry for counting
+        if (config.visit_count) {
+          await LINKS.delete(req_key + "-count")
+        }
+
+        return new Response(`{"status":200, "key": "` + req_key + `", "error": ""}`, {
+          headers: response_header,
+        })
+      }
     } else if (req_cmd == "qry") {
       let value = await LINKS.get(req_key)
       if (value != null) {
