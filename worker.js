@@ -130,7 +130,12 @@ async function handleRequest(request) {
       let stat, random_key
       if (config.custom_link && (req_key != "")) {
         let is_exist = await LINKS.get(req_key)
-        if (is_exist != null) {
+        // Refuse 'password" as Custom shortURL
+        if (req_key == "password") {
+          return new Response(`{"status":500,"key": "` + req_key + `", "error":"Error: Custom shortURL NOT PERMITTED."}`, {
+            headers: response_header,
+          })
+        } else if (is_exist != null) {
           return new Response(`{"status":500,"key": "` + req_key + `", "error":"Error: Custom shortURL existed."}`, {
             headers: response_header,
           })
