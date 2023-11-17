@@ -99,6 +99,12 @@ function loadUrlList() {
   console.log(+len)
   for (; len > 0; len--) {
     let keyShortURL = localStorage.key(len - 1)
+    
+    // Skip adding the entry if the key is "password"
+    if (keyShortURL === "password") {
+      continue;
+    }
+    
     let valueLongURL = localStorage.getItem(keyShortURL)
 
     // 如果长链接为空，加载所有的localStorage
