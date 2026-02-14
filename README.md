@@ -7,7 +7,7 @@
 
 网络日记本 NetJournal 支持Markdown https://journal.crazypeace.workers.dev/journaljournal
 
-# 完整的部署教程
+## 完整的部署教程
 https://zelikk.blogspot.com/2022/07/url-shorten-worker-hide-tutorial.html
 
 ## 如果不想被作者的更新影响

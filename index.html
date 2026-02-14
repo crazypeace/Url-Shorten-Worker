@@ -3,60 +3,56 @@
 <head>
   <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <title>Shorter URL</title>
-  <link rel="stylesheet" href="https://crazypeace.github.io/Url-Shorten-Worker/styles.css">
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/crazypeace/Url-Shorten-Worker/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>URL缩短</title>
+  <!--
+    <link rel="stylesheet" href="https://crazypeace.github.io/Url-Shorten-Worker/styles.css">
   -->
+  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉 -->
+    <link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/coolwindx/Url-Shorten-Worker/styles.css">
 </head>
 <body>
   <div class="d-flex align-items-start flex-wrap">
   <div class="card shadow m-3">
-    <h5 class="card-header">A URL Shortener created using free Cloudflare worker and KV</h5>
+    <h5 class="card-header">使用免费的 Cloudflare worker 和 KV 创建的 URL 缩短器</h5>
     <div class="card-body">
       <h5 class="card-title"> </h5>
 
       <div class="input-group mb-3">
 
-          <span class="input-group-text" id="basic-addon1">Long URL</span>
+          <span class="input-group-text" id="basic-addon1">长链接</span>
 
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="Example: https://example.com/" oninput="loadUrlList()">
+        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="例如: https://example.com/" oninput="loadUrlList()">
       </div>
 
       <div class="input-group mb-3">
 
-          <span class="input-group-text" id="basic-addon2">Custom Short URL</span>
+          <span class="input-group-text" id="basic-addon2">自定义短链</span>
 
-        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="As you wish">
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="填入你想要自定义的后缀">
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">Shorten it</button>
+        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">缩短</button>
       </div>
 
       <div class="input-group mb-3">
 
-          <span class="input-group-text" id="basic-addon3">password</span>
+          <span class="input-group-text" id="basic-addon3">访问密码</span>
 
         <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
       </div>
 
     </div>
-    
-    <div class="card-footer">
-      <span> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_self">Fork me on GitHub</a> </span>
-    </div>
-  </div>
 
   <div class="card shadow m-3">
-    <h5 class="card-header">LocalStorage List</h5>
+    <h5 class="card-header">加载本地存储列表</h5>
     <div class="card-body">
       <h5 class="card-title"> </h5>
       <div class="input-group mb-3">
-        <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">load localStorage</button>
-        <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">clear localStorage</button>
-        <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">load KV to localStorage</button>
+        <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">加载本地存储</button>
+        <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">清空本地存储</button>
+        <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">加载KV到本地存储</button>
       </div>
 
       <div class="card-text">
@@ -81,25 +77,25 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="resultModalLabel">Result</h5>
+          <h5 class="modal-title" id="resultModalLabel">结果</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="result">No result</div>
+        <div class="modal-body" id="result">无结果</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Copied!">Copy</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="已复制!">复制</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
         </div>
       </div>
     </div>
   </div>
   
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js" crossorigin="anonymous"></script>
-
+  <script src="https://cdn.jsdmirror.com/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdmirror.com/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdmirror.com/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js" crossorigin="anonymous"></script>
+<!--
   <script src="https://crazypeace.github.io/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
-    <script src="https://cdn.jsdelivr.net/gh/crazypeace/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
-  -->
+-->
+  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉 -->
+    <script src="https://cdn.jsdmirror.com/gh/coolwindx/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ let buildValueItemFunc = buildValueTxt
 
 function shorturl() {
   if (document.querySelector("#longURL").value == "") {
-    alert("Url cannot be empty!")
+    alert("Url 不能为空!")
     return
   }
   
@@ -20,7 +20,7 @@ function shorturl() {
   document.getElementById('keyPhrase').value = document.getElementById('keyPhrase').value.replace(/\s/g, "-");
 
   document.getElementById("addBtn").disabled = true;
-  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please wait...';
+  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>请等待...';
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -30,7 +30,7 @@ function shorturl() {
   }).then(function (myJson) {
     res = myJson;
     document.getElementById("addBtn").disabled = false;
-    document.getElementById("addBtn").innerHTML = 'Shorten it';
+    document.getElementById("addBtn").innerHTML = '缩短';
 
     // 成功生成短链 Succeed
     if (res.status == "200") {
@@ -54,7 +54,7 @@ function shorturl() {
     alert("Unknow error. Please retry!");
     console.log(err);
     document.getElementById("addBtn").disabled = false;
-    document.getElementById("addBtn").innerHTML = 'Shorten it';
+    document.getElementById("addBtn").innerHTML = '缩短';
   })
 }
 
@@ -85,7 +85,7 @@ function copyurl(id, attr) {
     window.getSelection().removeAllRanges();
     // console.log('Copy success')
   } catch (e) {
-    console.log('Copy error')
+    console.log('复制失败')
   }
 
   if (attr) {
@@ -204,7 +204,7 @@ function deleteShortUrl(delKeyPhrase) {
       // 加载localStorage
       loadUrlList()
 
-      document.getElementById("result").innerHTML = "Delete Successful"
+      document.getElementById("result").innerHTML = "删除成功"
     } else {
       document.getElementById("result").innerHTML = res.error;
     }
@@ -214,7 +214,7 @@ function deleteShortUrl(delKeyPhrase) {
     modal.show();
 
   }).catch(function (err) {
-    alert("Unknow error. Please retry!");
+    alert("未知错误，请重试!");
     console.log(err);
   })
 }
